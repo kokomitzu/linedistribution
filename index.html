@@ -205,7 +205,13 @@ body{background:var(--bg);color:#fff;font-family:'DM Mono',monospace;height:100d
 #size-close{width:100%;padding:10px;background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:5px;color:rgba(255,255,255,0.3);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;}
 </style>
 </head>
-
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(r => alert('SW OK: ' + r.scope))
+      .catch(e => alert('SW FAILED: ' + e));
+  }
+</script>
 <body>
 <div id="bg-layer">
   <div id="bg-layer-img"></div>
