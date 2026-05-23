@@ -207,7 +207,7 @@ body{background:var(--bg);color:#fff;font-family:'DM Mono',monospace;height:100d
 </head>
 <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
+    navigator.serviceWorker.register('/linedistribution/sw.js', {scope: '/linedistribution/'})
       .then(r => alert('SW OK: ' + r.scope))
       .catch(e => alert('SW FAILED: ' + e));
   }
