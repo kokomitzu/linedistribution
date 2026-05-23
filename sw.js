@@ -1,12 +1,10 @@
 const CACHE = 'linedist-v8';
+const SCOPE = '/linedistribution/';
 
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(CACHE)
-      .then(cache => Promise.all([
-        cache.add(new Request('/', { cache: 'reload' })),
-        cache.add(new Request('/index.html', { cache: 'reload' }))
-      ]))
+      .then(cache => cache.add(new Request(SCOPE, { cache: 'reload' })))
       .then(() => self.skipWaiting())
   );
 });
@@ -25,14 +23,14 @@ self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
 
   e.respondWith(
-    caches.open(CACHE).then(cache => {
-      return cache.match('/index.html').then(cached => {
+    caches.open(CACHE).then(cache =>
+      cache.match(SCOPE).then(cached => {
         if (cached) return cached;
         return fetch(e.request).then(res => {
           if (res.ok) cache.put(e.request, res.clone());
           return res;
-        }).catch(() => cache.match('/index.html'));
-      });
-    })
+        }).catch(() => cache.match(SCOPE));
+      })
+    )
   );
 });
