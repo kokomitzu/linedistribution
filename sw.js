@@ -1,4 +1,4 @@
-const CACHE = 'linedist-v7';
+const CACHE = 'linedist-v8';
 
 self.addEventListener('install', e => {
   e.waitUntil(
